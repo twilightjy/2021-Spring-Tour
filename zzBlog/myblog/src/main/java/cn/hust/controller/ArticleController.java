@@ -86,7 +86,7 @@ public class ArticleController {
     @OptLog(optType = UPDATE)
     @ApiOperation(value = "恢复或删除文章")
     @PutMapping("/admin/articles")
-    public Result updateArticleDelete(DeleteVO deleteVO) {
+    public Result updateArticleDelete(DeleteVO deleteVO) {//伪删除，只是修改文章状态使之不可见，并没有真正删除,所以是UPDATE!
         articleService.updateArticleDelete(deleteVO);
         return new Result<>(true, StatusConst.OK, "操作成功");
     }
@@ -94,7 +94,7 @@ public class ArticleController {
     @OptLog(optType = REMOVE)
     @ApiOperation(value = "物理删除文章")
     @DeleteMapping("/admin/articles")
-    public Result deleteArticles(@RequestBody List<Integer> articleIdList) {
+    public Result deleteArticles(@RequestBody List<Integer> articleIdList) {//真的删除了！REMOVE!
         articleService.deleteArticles(articleIdList);
         return new Result<>(true, StatusConst.OK, "操作成功！");
     }

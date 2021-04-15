@@ -115,8 +115,8 @@ public interface ArticleService extends IService<Article> {
     void updateArticleDelete(DeleteVO deleteVO);
 
     /**
-     * 物理删除文章
-     * @param articleIdList 文章id集合
+     * 物理删除文章 需要删除标签和文章本体
+     * @param articleIdList 文章id集合 根据id可以批量删除
      */
     void deleteArticles(List<Integer> articleIdList);
 

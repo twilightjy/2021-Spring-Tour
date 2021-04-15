@@ -7,7 +7,7 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
-/**
+/**文章标签
  * <p>
  * 
  * </p>

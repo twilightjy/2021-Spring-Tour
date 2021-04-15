@@ -88,3 +88,5 @@ https://www.jianshu.com/p/8738ce6bd771
 multipartfile是spring类型，代表HTML中form data方式上传的文件，包含二进制数据+文件名称。
 
 https://blog.csdn.net/a1191835397/article/details/90951345
+
+11、@Transactional(rollbackFor = Exception.class

@@ -146,14 +146,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
                 .select(Article::getId, Article::getArticleTitle, Article::getArticleCover)
                 .eq(Article::getIsDelete, FALSE)
                 .eq(Article::getIsDraft, FALSE)
-                .lt(Article::getId, articleId)
+                .lt(Article::getId, articleId)//lt小于,指向上一篇文章
                 .orderByDesc(Article::getId)
-                .last("limit 1"));
+                .last("limit 1"));//无视优化规则直接拼到最后
         Article nextArticle = articleDao.selectOne(new LambdaQueryWrapper<Article>()
                 .select(Article::getId, Article::getArticleTitle, Article::getArticleCover)
                 .eq(Article::getIsDelete, FALSE)
                 .eq(Article::getIsDraft, FALSE)
-                .gt(Article::getId, articleId)
+                .gt(Article::getId, articleId)//gt大于,指向下一篇文章
                 .orderByAsc(Article::getId)
                 .last("limit 1"));
         article.setLastArticle(BeanCopyUtil.copyObject(lastArticle, ArticlePaginationDTO.class));
@@ -193,7 +193,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
         if (!set.contains(articleId)) {
             set.add(articleId);
             session.setAttribute("articleSet", set);
-            // 浏览量+1
+            // 浏览量+1 操作redisTemplate
             redisTemplate.boundHashOps(ARTICLE_VIEWS_COUNT).increment(articleId.toString(), 1);
         }
     }
@@ -284,10 +284,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
         articleDao.updateById(article);
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)//出异常后进行事务回滚
     @Override
     public void updateArticleDelete(DeleteVO deleteVO) {
-        // 修改文章逻辑删除状态
+        // 修改文章逻辑删除状态 stream()流
         List<Article> articleList = deleteVO.getIdList().stream().map(id -> Article.builder()
                 .id(id)
                 .isTop(FALSE)
@@ -300,10 +300,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteArticles(List<Integer> articleIdList) {
-        // 删除文章标签关联
+        // 删除文章标签关联 根据id查tag
         articleTagDao.delete(new LambdaQueryWrapper<ArticleTag>().in(ArticleTag::getArticleId, articleIdList));
         // 删除文章
-        articleDao.deleteBatchIds(articleIdList);
+        articleDao.deleteBatchIds(articleIdList);//deleteBatchIds方法，根据id批量删除
     }
 
     @Override
@@ -313,7 +313,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
 
     @Override
     public ArticleVO getArticleBackById(Integer articleId) {
-        // 查询文章信息
+        // 查询文章信息,不需要Article的全部属性，所以用select进行选择性的查询，eq指明查询条件（根据id查询)
         Article article = articleDao.selectOne(new LambdaQueryWrapper<Article>()
                 .select(Article::getId, Article::getArticleTitle, Article::getArticleContent, Article::getArticleCover, Article::getCategoryId, Article::getIsTop, Article::getIsDraft)
                 .eq(Article::getId, articleId));
