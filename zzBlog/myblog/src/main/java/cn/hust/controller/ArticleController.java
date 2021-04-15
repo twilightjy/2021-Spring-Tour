@@ -5,6 +5,7 @@ import cn.hust.constant.StatusConst;
 import cn.hust.dto.*;
 import cn.hust.enums.FilePathEnum;
 import cn.hust.service.ArticleService;
+import cn.hust.utils.OSSUtil;
 import cn.hust.vo.ArticleVO;
 import cn.hust.vo.ConditionVO;
 import cn.hust.vo.DeleteVO;

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-/**首页文章列表
+/**首页文章列表DTO
  * @author: zz
  * @date: 2021-04-13
  **/

@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Data
 public class Result<T> implements Serializable {
     //返回给前端的数据格式被Result类涵盖
-    private boolean flag;
-    private Integer code;
-    private String message;
+    private boolean flag;//标志位
+    private Integer code;//状态码
+    private String message;//文字提示信息
     private T data;//泛型T，根据具体情况封装成dto和vo
 
     //完整的Result

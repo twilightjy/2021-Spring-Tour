@@ -1,5 +1,7 @@
 # 1、Swagger
 
+接口管理统一规范
+
 ## 1.1常用注解
 
 @ApiOperation不是spring自带的注解是swagger里的 
@@ -29,3 +31,16 @@ Swagger是当前最好用的Restful API文档生成的开源项目，通过swagg
       · form（不常用）   
     dataType：参数类型，默认String，其它值dataType="Integer"    
     defaultValue：参数的默认值
+
+# 2、QueryWrapper的改进
+
+```
+// 获取分页数据,用LamdaQueryWrapper替代QueryWrapper，链式查询，可读性更好，通过.容易扩展
+Page<Article> articlePage = articleDao.selectPage(page, new LambdaQueryWrapper<Article>()
+        .select(Article::getId, Article::getArticleTitle, Article::getCreateTime)
+        .orderByDesc(Article::getCreateTime)
+        .eq(Article::getIsDelete, FALSE)
+        .eq(Article::getIsDraft, FALSE));
+```
+
+# 3、SQL语句join on的使用
