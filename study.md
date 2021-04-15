@@ -73,3 +73,18 @@ https://www.jianshu.com/p/e62d04c31d6e
 
 ![img](https://iknow-pic.cdn.bcebos.com/3b292df5e0fe99255a43f44a3fa85edf8db17159?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1/quality,q_85/format,f_jpg)
 
+# 9、操作日志注解中的注解
+
+```
+@Target(ElementType.METHOD) 描述该注解使用的范围 METHOD 用于方法
+@Retention(RetentionPolicy.RUNTIME)  
+@Documented
+```
+
+https://www.jianshu.com/p/8738ce6bd771
+
+# 10、MultipartFile类型
+
+multipartfile是spring类型，代表HTML中form data方式上传的文件，包含二进制数据+文件名称。
+
+https://blog.csdn.net/a1191835397/article/details/90951345

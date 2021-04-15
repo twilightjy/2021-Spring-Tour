@@ -277,7 +277,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateArticleTop(Integer articleId, Integer isTop) {
-        // 修改文章置顶状态
+        // 修改文章置顶状态，采取建造者模式，简洁直观
         Article article = Article.builder()
                 .id(articleId)
                 .isTop(isTop).build();

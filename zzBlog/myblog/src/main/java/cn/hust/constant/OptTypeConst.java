@@ -1,7 +1,7 @@
 package cn.hust.constant;
 
 /**
- * 操作日志类型常量
+ * 操作日志类型常量 服务于OptLog注解
  */
 public class OptTypeConst {
 

@@ -63,9 +63,9 @@ public class ArticleController {
     @OptLog(optType = SAVE_OR_UPDATE)
     @ApiOperation(value = "添加或修改文章")
     @PostMapping("/admin/articles")
-    public Result saveArticle(@Valid @RequestBody ArticleVO articleVO) {
+    public Result saveArticle(@Valid @RequestBody ArticleVO articleVO) {//RequestBody接收到JSON封装为VO，valid作数据校验
         articleService.saveOrUpdateArticle(articleVO);
-        return new Result<>(true, StatusConst.OK, "操作成功");
+        return new Result<>(true, StatusConst.OK, "操作成功");//由于不需要data所以不指定Result的泛型
     }
 
     @OptLog(optType = UPDATE)
@@ -77,7 +77,7 @@ public class ArticleController {
     }
 
     @ApiOperation(value = "上传文章图片")
-    @ApiImplicitParam(name = "file", value = "文章图片", required = true, dataType = "MultipartFile")
+    @ApiImplicitParam(name = "file", value = "文章图片", required = true, dataType = "MultipartFile")//MultipartFile类型
     @PostMapping("/admin/articles/images")
     public Result<String> saveArticleImages(MultipartFile file) {
         return new Result<>(true, StatusConst.OK, "上传成功", OSSUtil.upload(file, FilePathEnum.ARTICLE.getPath()));
