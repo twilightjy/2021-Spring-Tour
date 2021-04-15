@@ -89,4 +89,23 @@ multipartfile是spring类型，代表HTML中form data方式上传的文件，包
 
 https://blog.csdn.net/a1191835397/article/details/90951345
 
-11、@Transactional(rollbackFor = Exception.class
+# 11、@Transactional(rollbackFor = Exception.class
+
+针对Exception对事物进行回滚
+
+# 12、很过分的一种炫技写法
+
+```
+@Transactional(rollbackFor = Exception.class)//出异常后进行事务回滚
+@Override
+public void updateArticleDelete(DeleteVO deleteVO) {
+    // 修改文章逻辑删除状态
+    List<Article> articleList = deleteVO.getIdList().stream().map(id -> Article.builder()
+            .id(id)
+            .isTop(FALSE)
+            .isDelete(deleteVO.getIsDelete())
+            .build())
+            .collect(Collectors.toList());
+    articleService.updateBatchById(articleList);
+}
+```
