@@ -121,3 +121,7 @@ public void updateArticleDelete(DeleteVO deleteVO) {
 指定某个方法在特定的时间执行  上述写法即每天0点整执行一次
 
 https://blog.csdn.net/m0_37179470/article/details/81271607
+
+15、QueryWrapper模糊查询
+
+https://blog.csdn.net/weixin_45121502/article/details/106016157

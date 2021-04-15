@@ -48,6 +48,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
                 .like(StringUtils.isNotBlank(condition.getKeywords()), Category::getCategoryName, condition.getKeywords())
                 .orderByDesc(Category::getId);
         Page<Category> categoryPage = categoryDao.selectPage(page, categoryLambdaQueryWrapper);
+        //封装为PageDTO
         return new PageDTO<>(categoryPage.getRecords(), (int) categoryPage.getTotal());
     }
 
