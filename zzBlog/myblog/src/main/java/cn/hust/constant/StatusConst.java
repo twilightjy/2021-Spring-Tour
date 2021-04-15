@@ -1,7 +1,7 @@
 package cn.hust.constant;
 
 /**
- * 返回码常量
+ * 返回码静态常量 对应于Result中的code 在返回数据给前端的时候调用
  *
  * @author zz
  */
