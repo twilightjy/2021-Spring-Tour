@@ -91,14 +91,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
         }
         // 查询后台文章
         List<ArticleBackDTO> articleBackDTOList = articleDao.listArticleBacks(condition);
-        // 查询文章点赞量和浏览量
-        Map<String, Integer> viewsCountMap = redisTemplate.boundHashOps(ARTICLE_VIEWS_COUNT).entries();
-        Map<String, Integer> likeCountMap = redisTemplate.boundHashOps(ARTICLE_LIKE_COUNT).entries();
-        // 封装点赞量和浏览量
+        // 查询文章点赞量和浏览量,redis
+        Map<String, Integer> viewsCountMap = redisTemplate.boundHashOps(ARTICLE_VIEWS_COUNT).entries();//id-viewCount map
+        Map<String, Integer> likeCountMap = redisTemplate.boundHashOps(ARTICLE_LIKE_COUNT).entries();//id-likeCount map
+        // 封装点赞量和浏览量。forEach简化对List的遍历操作
         articleBackDTOList.forEach(item -> {
-            item.setViewsCount(Objects.requireNonNull(viewsCountMap).get(item.getId().toString()));
+            item.setViewsCount(Objects.requireNonNull(viewsCountMap).get(item.getId().toString()));//根据id在相应redis map中查询
             item.setLikeCount(Objects.requireNonNull(likeCountMap).get(item.getId().toString()));
         });
+        //最后封装PageDTO
         return new PageDTO<>(articleBackDTOList, count);
     }
 
@@ -199,14 +200,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
 
     @Override
     public ArticleOptionDTO listArticleOptionDTO() {
-        // 查询文章分类选项
+        // 查询文章分类选项 根据id和name LambdaQuery链式查询
         List<Category> categoryList = categoryDao.selectList(new LambdaQueryWrapper<Category>()
                 .select(Category::getId, Category::getCategoryName));
+        //加你个Category封装成CategoryBack
         List<CategoryBackDTO> categoryDTOList = BeanCopyUtil.copyList(categoryList, CategoryBackDTO.class);
-        // 查询文章标签选项
+        // 查询文章标签选项 根据id和name LambdaQuery链式查询
         List<Tag> tagList = tagDao.selectList(new LambdaQueryWrapper<Tag>()
                 .select(Tag::getId, Tag::getTagName));
+        //将Tag封装成TagDTO
         List<TagDTO> tagDTOList = BeanCopyUtil.copyList(tagList, TagDTO.class);
+        //借助于Builder建造者模式封装所需的ArticleOptionDTO对象
         return ArticleOptionDTO.builder()
                 .categoryDTOList(categoryDTOList)
                 .tagDTOList(tagDTOList)

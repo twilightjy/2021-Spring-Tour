@@ -1,7 +1,7 @@
 package cn.hust.constant;
 
 /**
- *redis 常量
+ *redis 常量 表名
  */
 public class RedisPrefixConst {
 

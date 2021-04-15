@@ -10,7 +10,7 @@ public class BeanCopyUtil {
 
     /**
      * 根据现有对象的属性创建目标对象，并赋值
-     *
+     * 泛型方法 返回T类型 之前必须声明 <T>
      * @param source
      * @param target
      * @param <T>
@@ -20,9 +20,9 @@ public class BeanCopyUtil {
     public static <T> T copyObject(Object source, Class<T> target) {
         T temp = null;
         try {
-            temp = target.newInstance();
+            temp = target.newInstance();//根据Class对象，反射创建T类型temp对象
             if (null != source) {
-                org.springframework.beans.BeanUtils.copyProperties(source, temp);
+                org.springframework.beans.BeanUtils.copyProperties(source, temp);//借助于BeanUtils工具类
             }
         } catch (Exception e) {
             e.printStackTrace();

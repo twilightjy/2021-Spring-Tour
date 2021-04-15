@@ -44,3 +44,32 @@ Page<Article> articlePage = articleDao.selectPage(page, new LambdaQueryWrapper<A
 ```
 
 # 3、SQL语句join on的使用
+
+join具有 **连接**的作用，即当两个或者两个以上的表有关系时，需要join来连接这些相关的表，来处理或分析数据。跨表查询,多表关联查询
+
+举例：https://blog.csdn.net/weixin_44177568/article/details/103038236
+
+# 4、Lombok中@Builder用法
+
+Builder 使用创建者模式又叫建造者模式。简单来说，就是一步步创建一个对象，它对用户屏蔽了里面构建的细节，但却可以精细地控制对象的构造过程。
+
+# 5、List foreach方法
+
+forEach（）方法是Iterable<T>接口中的一个方法。Java容器中，所有的Collection子类（List、Set）会实现Iteratable接口以实现foreach功能。forEach（）方法里面有个Consumer类型，它是Java8新增的一个消费型函数式接口，其中的accept(T t)方法代表了接受一个输入参数并且无返回的操作。foreach为开发人员提供了极大的方便。在复杂的循环设计时，还是应该使用for循环更加的灵活。
+
+# 6、Objects.requireNonNull
+
+非空检查常用方法
+
+# 7、对redis五种基本数据类型的常用操作
+
+https://www.jianshu.com/p/e62d04c31d6e
+
+
+
+# 8、泛型方法
+
+定义泛型方法时，必须在返回值前边加一个<T>，来声明这是一个泛型方法，持有一个泛型T，然后才可以用泛型T作为方法的返回值
+
+![img](https://iknow-pic.cdn.bcebos.com/3b292df5e0fe99255a43f44a3fa85edf8db17159?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1/quality,q_85/format,f_jpg)
+
