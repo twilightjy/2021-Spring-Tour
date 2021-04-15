@@ -10,7 +10,7 @@ import lombok.*;
 
 /**
  * <p>
- * 
+ * 访问量
  * </p>
  *
  * @author zz
@@ -24,7 +24,7 @@ import lombok.*;
 public class UniqueView {
 
   /**
-   * id
+   * id 自动创建
    */
   @TableId(value = "id", type = IdType.AUTO)
   private Integer id;

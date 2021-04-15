@@ -109,3 +109,15 @@ public void updateArticleDelete(DeleteVO deleteVO) {
     articleService.updateBatchById(articleList);
 }
 ```
+
+# 13、Calendar add方法
+
+第一个参数：如果是1则代表的是对年份操作，2是对月份操作，3是对星期操作，5是对日期操作，11是对小时操作，12是对分钟操作，13是对秒操作，14是对毫秒操作。在Calendar中这些数字被定义为static final Integer可以直接调用
+
+第二个参数：日历的偏移量，可以指定一个日历中的字段，进行整数的偏移。
+
+# 14、@Scheduled(cron = " 0 0 0 * * ?")
+
+指定某个方法在特定的时间执行  上述写法即每天0点整执行一次
+
+https://blog.csdn.net/m0_37179470/article/details/81271607

@@ -19,7 +19,12 @@ public class DateUtil {
     public static final String YYYY_MM_DD_HH = "yyyy-MM-dd HH";
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
 
-
+    /**根据某天和相对其的偏移量获取目标天
+     *
+     * @param date 原始日期
+     * @param day  偏移量
+     * @return 原始日期+偏移量
+     */
     public static Date getSomeDay(Date date, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
