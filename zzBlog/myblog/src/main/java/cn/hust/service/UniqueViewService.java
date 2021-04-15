@@ -19,7 +19,7 @@ public interface UniqueViewService extends IService<UniqueView> {
     void saveUniqueView();
 
     /**
-     * 获取7天用户量统计
+     * 获取一周（7天）用户量统计
      * @return 用户量
      */
     List<UniqueViewDTO> listUniqueViews();

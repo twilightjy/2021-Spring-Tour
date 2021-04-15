@@ -49,20 +49,20 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         UserInfo userInfo = userInfoDao.selectOne(new LambdaQueryWrapper<UserInfo>()
                 .select(UserInfo::getAvatar, UserInfo::getNickname, UserInfo::getIntro)
                 .eq(UserInfo::getId, CommonConst.BLOGGER_ID));
-        // 查询文章数量
+        // 查询文章数量 ; 需要排除草稿文章和假删除状态的文章
         Integer articleCount = articleDao.selectCount(new LambdaQueryWrapper<Article>()
                 .eq(Article::getIsDraft, FALSE)
                 .eq(Article::getIsDelete, FALSE));
-        // 查询分类数量
+        // 查询分类数量 ; 无需条件，查询全部分类
         Integer categoryCount = categoryDao.selectCount(null);
-        // 查询标签数量
+        // 查询标签数量 ; 无需条件，查询全部标签
         Integer tagCount = tagDao.selectCount(null);
-        // 查询公告
+        // 查询公告 在redis中NOTICE表下
         Object value = redisTemplate.boundValueOps(NOTICE).get();
         String notice = Objects.nonNull(value) ? value.toString() : "发布你的第一篇公告吧";
         // 查询访问量
         String viewsCount = Objects.requireNonNull(redisTemplate.boundValueOps(BLOG_VIEWS_COUNT).get()).toString();
-        // 封装数据
+        // 封装成BlogHomeInfoDTO，建造者模式
         return BlogHomeInfoDTO.builder()
                 .nickname(userInfo.getNickname())
                 .avatar(userInfo.getAvatar())
@@ -77,7 +77,7 @@ public class BlogInfoServiceImpl implements BlogInfoService {
 
     @Override
     public BlogBackInfoDTO getBlogBackInfo() {
-        // 查询访问量
+        // 查询访问量 redis中BLOG_VIEWS_COUNT表
         Integer viewsCount = (Integer) redisTemplate.boundValueOps(BLOG_VIEWS_COUNT).get();
         // 查询留言量
         Integer messageCount = messageDao.selectCount(null);
