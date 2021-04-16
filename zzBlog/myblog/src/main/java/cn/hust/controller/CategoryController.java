@@ -68,8 +68,9 @@ public class CategoryController {
     }
 
     @ApiOperation(value = "查看分类下对应的文章")
-    @GetMapping("/categories/{categoryId}")
+    @GetMapping("/categories/{categoryId}")//根据分类ID查看
     public Result<ArticlePreviewListDTO> listArticlesByCategoryId(@PathVariable("categoryId") Integer categoryId, Integer current) {
+        //封装查询条件VO
         ConditionVO conditionVO = ConditionVO.builder()
                 .categoryId(categoryId)
                 .current(current)

@@ -122,6 +122,14 @@ public void updateArticleDelete(DeleteVO deleteVO) {
 
 https://blog.csdn.net/m0_37179470/article/details/81271607
 
-15、QueryWrapper模糊查询
+# 15、QueryWrapper模糊查询
 
 https://blog.csdn.net/weixin_45121502/article/details/106016157
+
+# 16、ElasticSearch HightLight用法
+
+https://blog.csdn.net/qq330983778/article/details/103690377
+
+# 17、NativeSearchQueryBuilder用法
+
+https://blog.csdn.net/qq_40885085/article/details/105024625

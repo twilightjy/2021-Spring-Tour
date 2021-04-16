@@ -358,9 +358,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
 
     /**
      * 文章搜索结果高亮
-     *
+     * complex!!!!!!
      * @param nativeSearchQueryBuilder es条件构造器
      * @return 搜索结果
+     * pre_tags:  与post_tags一起使用，定义用于突出显示文本的HTML标记。默认情况下，突出显示的文本被包装在和标记中。指定为字符串数组。
+     * post_tags: 与pre_tags一起使用，定义用于突出显示文本的HTML标记。默认情况下，突出显示的文本被包装在和标记中。指定为字符串数组。
+     * fragmentSize: 字符中突出显示的片段的大小。默认为100。
      */
     private List<ArticleSearchDTO> searchArticle(NativeSearchQueryBuilder nativeSearchQueryBuilder) {
         // 添加文章标题高亮
