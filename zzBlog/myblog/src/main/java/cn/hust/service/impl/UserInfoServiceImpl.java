@@ -47,7 +47,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateUserInfo(UserInfoVO userInfoVO) {
-        // 封装用户信息
+        // 直接根据VO封装用户信息
         UserInfo userInfo = UserInfo.builder()
                 .id(UserUtil.getLoginUser().getUserInfoId())
                 .nickname(userInfoVO.getNickname())
@@ -96,7 +96,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateUserDisable(Integer userInfoId, Integer isDisable) {
-        // 更新用户禁用状态
+        // 更新用户禁言状态 根据id修改isDisable属性即可
         UserInfo userInfo = UserInfo.builder()
                 .id(userInfoId)
                 .isDisable(isDisable)

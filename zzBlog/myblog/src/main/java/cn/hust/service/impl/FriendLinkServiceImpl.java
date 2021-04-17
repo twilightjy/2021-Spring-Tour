@@ -45,7 +45,7 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkDao, FriendLink
         Page<FriendLink> friendLinkPage = friendLinkDao.selectPage(page, new LambdaQueryWrapper<FriendLink>()
                 .select(FriendLink::getId, FriendLink::getLinkName, FriendLink::getLinkAvatar, FriendLink::getLinkAddress, FriendLink::getLinkIntro, FriendLink::getCreateTime)
                 .like(StringUtils.isNotBlank(condition.getKeywords()), FriendLink::getLinkName, condition.getKeywords()));
-        // 转换DTO
+        // 将实体类进一步封装为DTO
         List<FriendLinkBackDTO> friendLinkBackDTOList = BeanCopyUtil.copyList(friendLinkPage.getRecords(), FriendLinkBackDTO.class);
         return new PageDTO<>(friendLinkBackDTOList, (int) friendLinkPage.getTotal());
     }
@@ -53,6 +53,7 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkDao, FriendLink
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveOrUpdateFriendLink(FriendLinkVO friendLinkVO) {
+        //建造者设置属性
         FriendLink friendLink = FriendLink.builder()
                 .id(friendLinkVO.getId())
                 .linkName(friendLinkVO.getLinkName())
@@ -61,6 +62,7 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkDao, FriendLink
                 .linkIntro(friendLinkVO.getLinkIntro())
                 .createTime(Objects.isNull(friendLinkVO.getId()) ? new Date() : null)
                 .build();
+        //更新
         this.saveOrUpdate(friendLink);
     }
 

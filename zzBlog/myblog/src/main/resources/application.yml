@@ -27,15 +27,15 @@ spring:
       connection-test-query: SELECT 1
   #redis配置
   redis:
-    host: 你的密码
+    host: 192.168.83.129
     port: 6379
-    password: Redis密码
+    password:
   #mq配置
   rabbitmq:
     host: 服务器ip
     port: 5672
-    username: MQ账号
-    password: MQ密码
+    username:
+    password:
   #邮箱配置
   mail:
     host: smtp.qq.com

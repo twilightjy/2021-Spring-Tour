@@ -40,7 +40,7 @@ public interface UserInfoService extends IService<UserInfo> {
      * 修改用户禁用状态
      *
      * @param userInfoId 用户信息id
-     * @param isDisable  禁用状态
+     * @param isDisable  禁言状态
      */
     void updateUserDisable(Integer userInfoId, Integer isDisable);
 

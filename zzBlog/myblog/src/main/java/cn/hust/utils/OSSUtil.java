@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * OSS工具类
+ * OSS工具类 阿里云服务器OSS存储
  */
 @Component
 public class OSSUtil {

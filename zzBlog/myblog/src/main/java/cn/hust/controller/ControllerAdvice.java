@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * <p>
  *  自定义前端控制器
  * </p>
- *
+ *全局controller统一异常处理 任何RuntimeException都会被捕获，封装为异常日志
  * @author zz
  * @since 2021-04-12
  */
