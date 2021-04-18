@@ -1,20 +1,25 @@
 package cn.hust.controller;
 
+import cn.hust.annotation.OptLog;
 import cn.hust.constant.StatusConst;
 import cn.hust.dto.OperationLogDTO;
 import cn.hust.dto.PageDTO;
+import cn.hust.dto.UserRoleDTO;
 import cn.hust.service.OperationLogService;
+import cn.hust.service.RoleService;
 import cn.hust.vo.ConditionVO;
 import cn.hust.vo.Result;
+import cn.hust.vo.RoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+
+import static cn.hust.constant.OptTypeConst.REMOVE;
+import static cn.hust.constant.OptTypeConst.SAVE_OR_UPDATE;
 
 /**
  * <p>
@@ -28,18 +33,33 @@ import java.util.List;
 @RestController
 public class RoleController {
     @Autowired
-    private OperationLogService operationLogService;
+    private RoleService roleService;
 
-    @ApiOperation(value = "查看操作日志")
-    @GetMapping("/admin/operation/logs")
-    public Result<PageDTO<OperationLogDTO>> listOperationLogs(ConditionVO conditionVO) {
-        return new Result<>(true, StatusConst.OK, "查询成功", operationLogService.listOperationLogs(conditionVO));
+    @ApiOperation(value = "查询用户角色选项")
+    @GetMapping("/admin/users/role")
+    public Result<List<UserRoleDTO>> listUserRole() {
+        return new Result<>(true, StatusConst.OK, "查询成功", roleService.listUserRoles());
     }
 
-    @ApiOperation(value = "删除操作日志")
-    @DeleteMapping("/admin/operation/logs")
-    public Result deleteOperationLogs(@RequestBody List<Integer> logIdList) {
-        operationLogService.removeByIds(logIdList);
-        return new Result<>(true, StatusConst.OK, "删除成功");
+    @ApiOperation(value = "查询角色列表")
+    @GetMapping("/admin/roles")
+    public Result<List<UserRoleDTO>> listRoles(ConditionVO conditionVO) {
+        return new Result<>(true, StatusConst.OK, "查询成功", roleService.listRoles(conditionVO));
+    }
+
+    @OptLog(optType = SAVE_OR_UPDATE)
+    @ApiOperation(value = "保存或更新角色")
+    @PostMapping("/admin/role")
+    public Result listRoles(@RequestBody @Valid RoleVO roleVO) {
+        roleService.saveOrUpdateRole(roleVO);
+        return new Result<>(true, StatusConst.OK, "操作成功");
+    }
+
+    @OptLog(optType = REMOVE)
+    @ApiOperation(value = "删除角色")
+    @DeleteMapping("/admin/roles")
+    public Result deleteRoles(@RequestBody List<Integer> roleIdList) {
+        roleService.deleteRoles(roleIdList);
+        return new Result<>(true, StatusConst.OK, "操作成功");
     }
 }

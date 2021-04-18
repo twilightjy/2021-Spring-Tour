@@ -24,7 +24,7 @@ import static cn.hust.constant.OptTypeConst.*;
  * <p>
  *  前端控制器
  * </p>
- *
+ *采用Swagger2进行接口规范管理。访问localhost:8080/swagger-ui.html
  * @author zz
  * @since 2021-04-12
  */

@@ -49,10 +49,12 @@ public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagServi
     public PageDTO<Tag> listTagBackDTO(ConditionVO condition) {
         // 分页查询标签列表
         Page<Tag> page = new Page<>(condition.getCurrent(), condition.getSize());
+        //条件查询 模糊查询 根据时间降序排列（最新的在最前面）
         Page<Tag> tagPage = tagDao.selectPage(page, new LambdaQueryWrapper<Tag>()
                 .select(Tag::getId, Tag::getTagName, Tag::getCreateTime)
                 .like(StringUtils.isNotBlank(condition.getKeywords()), Tag::getTagName, condition.getKeywords())
                 .orderByDesc(Tag::getCreateTime));
+        //封装为DTO返回
         return new PageDTO<>(tagPage.getRecords(), (int) tagPage.getTotal());
     }
 
@@ -62,6 +64,7 @@ public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagServi
         //查询标签下是否有文章
         Integer count = articleTagDao.selectCount(new LambdaQueryWrapper<ArticleTag>()
                 .in(ArticleTag::getTagId, tagIdList));
+        //count不为0说明有文章，业务要求防止误删文章，则抛出异常
         if (count > 0) {
             throw new ServeException("删除失败，该标签下存在文章");
         }
@@ -71,11 +74,13 @@ public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagServi
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveOrUpdateTag(TagVO tagVO) {
+        //查询是否已存在同名标签,不重复创建
         Integer count = tagDao.selectCount(new LambdaQueryWrapper<Tag>()
                 .eq(Tag::getTagName, tagVO.getTagName()));
         if (count > 0) {
             throw new ServeException("标签名已存在");
         }
+        //不存在已创建的重名标签则build新的tag
         Tag tag = Tag.builder()
                 .id(tagVO.getId())
                 .tagName(tagVO.getTagName())
