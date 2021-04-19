@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * OSS工具类 阿里云服务器OSS存储
+ * OSS工具类 阿里云服务器OSS存储文件上传
+ *
+ * 参照阿里云官方文档
  */
 @Component
 public class OSSUtil {

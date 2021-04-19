@@ -83,6 +83,6 @@ mybatis-plus:
 #aliyun:
 #  url: "twilightjy.oss-cn-hangzhou.aliyuncs.com"
 #  endpoint: "http://oss-cn-hangzhou.aliyuncs.com"
-#  accessKeyId: "LTAI5tCeL6xs5PMQgJcAWDaf"
-#  accessKeySecret: "b0xsoYtm7MaCJDq0y5RwB7JvAii6YE"
+#  accessKeyId: ""
+#  accessKeySecret: ""
 #  bucketName: "twilightjy"
